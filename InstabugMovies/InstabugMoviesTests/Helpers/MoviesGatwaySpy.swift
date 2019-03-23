@@ -21,7 +21,12 @@ class MoviesGatewaySpy: MoviesGateway {
     }
     
     func add(parameters: AddMovieParameters, completionHandler: @escaping AddMovieEntityGatewayCompletionHandler) {
-        
+        addedMovie = Movie(id: parameters.id,
+                           title: parameters.title,
+                           overview: parameters.overview,
+                           date: parameters.date,
+                           poster: parameters.poster)
+        completionHandler(addMovieResultToBeReturned)
     }
     
 }

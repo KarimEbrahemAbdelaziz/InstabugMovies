@@ -26,7 +26,7 @@ class DisplayMoviesListUseCaseTest: XCTestCase {
         displayMoviesListUseCase = nil
     }
 
-    func testDisplaySuccessCallsCompletionHandler() {
+    func testDisplayMoviesSuccessCallsCompletionHandler() {
         // Given
         let moviesToDisplay = Movie.createMoviesArray()
         let expectedResultToBeReturned: Result<[Movie]> = Result.success(moviesToDisplay)
@@ -46,7 +46,7 @@ class DisplayMoviesListUseCaseTest: XCTestCase {
         waitForExpectations(timeout: 1, handler: nil)
     }
     
-    func testDisplayFailureCallsCompletionHandler() {
+    func testDisplayMoviesFailureCallsCompletionHandler() {
         // Given
         let expectedResultToBeReturned: Result<[Movie]> = Result.failure(NSError.createError(withMessage: "Any error message"))
         moviesGatewaySpy.fetchMoviesResultToBeReturned = expectedResultToBeReturned
