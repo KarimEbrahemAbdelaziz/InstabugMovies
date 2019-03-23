@@ -28,6 +28,8 @@
 		BC5110E12246E6A500B0BB79 /* APIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC5110E02246E6A500B0BB79 /* APIClient.swift */; };
 		BC5110E32246E6FC00B0BB79 /* APIResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC5110E22246E6FC00B0BB79 /* APIResponse.swift */; };
 		BC5110E52246E8E600B0BB79 /* JSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC5110E42246E8E600B0BB79 /* JSON.swift */; };
+		BC5110E82246E9FC00B0BB79 /* APIClientTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC5110E72246E9FC00B0BB79 /* APIClientTests.swift */; };
+		BC5110EA2246EA6F00B0BB79 /* URLSessionStub.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC5110E92246EA6F00B0BB79 /* URLSessionStub.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -75,6 +77,8 @@
 		BC5110E02246E6A500B0BB79 /* APIClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIClient.swift; sourceTree = "<group>"; };
 		BC5110E22246E6FC00B0BB79 /* APIResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIResponse.swift; sourceTree = "<group>"; };
 		BC5110E42246E8E600B0BB79 /* JSON.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSON.swift; sourceTree = "<group>"; };
+		BC5110E72246E9FC00B0BB79 /* APIClientTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIClientTests.swift; sourceTree = "<group>"; };
+		BC5110E92246EA6F00B0BB79 /* URLSessionStub.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLSessionStub.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -143,6 +147,7 @@
 				BC5110D72246DBFE00B0BB79 /* Creators */,
 				BC5110D02246D96700B0BB79 /* Helpers */,
 				BC5110CE2246D92900B0BB79 /* Core */,
+				BC5110E62246E9D000B0BB79 /* EntityGateway */,
 				BC5110A72246C0BF00B0BB79 /* InstabugMoviesTests.swift */,
 				BC5110A92246C0BF00B0BB79 /* Info.plist */,
 			);
@@ -216,6 +221,7 @@
 			isa = PBXGroup;
 			children = (
 				BC5110D52246DA7C00B0BB79 /* MoviesGatwaySpy.swift */,
+				BC5110E92246EA6F00B0BB79 /* URLSessionStub.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -245,6 +251,14 @@
 				BC5110E42246E8E600B0BB79 /* JSON.swift */,
 			);
 			path = API;
+			sourceTree = "<group>";
+		};
+		BC5110E62246E9D000B0BB79 /* EntityGateway */ = {
+			isa = PBXGroup;
+			children = (
+				BC5110E72246E9FC00B0BB79 /* APIClientTests.swift */,
+			);
+			path = EntityGateway;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -398,7 +412,9 @@
 				BC5110DB2246DE1F00B0BB79 /* Result.swift in Sources */,
 				BC5110D62246DA7C00B0BB79 /* MoviesGatwaySpy.swift in Sources */,
 				BC5110DD2246E0D700B0BB79 /* NSError.swift in Sources */,
+				BC5110E82246E9FC00B0BB79 /* APIClientTests.swift in Sources */,
 				BC5110D42246D9C500B0BB79 /* AddMovieUseCaseTest.swift in Sources */,
+				BC5110EA2246EA6F00B0BB79 /* URLSessionStub.swift in Sources */,
 				BC5110A82246C0BF00B0BB79 /* InstabugMoviesTests.swift in Sources */,
 				BC5110D22246D9B600B0BB79 /* DisplayMoviesListUseCaseTest.swift in Sources */,
 				BC5110D92246DC0C00B0BB79 /* Movie.swift in Sources */,
