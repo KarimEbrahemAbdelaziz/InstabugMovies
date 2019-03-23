@@ -15,6 +15,7 @@
 		BC5110A82246C0BF00B0BB79 /* InstabugMoviesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC5110A72246C0BF00B0BB79 /* InstabugMoviesTests.swift */; };
 		BC5110B32246C0BF00B0BB79 /* InstabugMoviesUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC5110B22246C0BF00B0BB79 /* InstabugMoviesUITests.swift */; };
 		BC5110C32246D19E00B0BB79 /* Movie.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC5110C22246D19E00B0BB79 /* Movie.swift */; };
+		BC5110C52246D22E00B0BB79 /* Result.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC5110C42246D22E00B0BB79 /* Result.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -49,6 +50,7 @@
 		BC5110B22246C0BF00B0BB79 /* InstabugMoviesUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InstabugMoviesUITests.swift; sourceTree = "<group>"; };
 		BC5110B42246C0BF00B0BB79 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		BC5110C22246D19E00B0BB79 /* Movie.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Movie.swift; sourceTree = "<group>"; };
+		BC5110C42246D22E00B0BB79 /* Result.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Result.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -140,6 +142,7 @@
 			isa = PBXGroup;
 			children = (
 				BC5110C22246D19E00B0BB79 /* Movie.swift */,
+				BC5110C42246D22E00B0BB79 /* Result.swift */,
 			);
 			path = Entities;
 			sourceTree = "<group>";
@@ -277,6 +280,7 @@
 			files = (
 				BC5110952246C0BE00B0BB79 /* ViewController.swift in Sources */,
 				BC5110932246C0BE00B0BB79 /* AppDelegate.swift in Sources */,
+				BC5110C52246D22E00B0BB79 /* Result.swift in Sources */,
 				BC5110C32246D19E00B0BB79 /* Movie.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
