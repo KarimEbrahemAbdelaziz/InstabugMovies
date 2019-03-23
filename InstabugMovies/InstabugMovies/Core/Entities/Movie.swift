@@ -15,3 +15,9 @@ struct Movie {
     var date: String
     var poster: String
 }
+
+extension Movie: Equatable { }
+
+func == (lhs: Movie, rhs: Movie) -> Bool {
+    return lhs.id == rhs.id
+}
