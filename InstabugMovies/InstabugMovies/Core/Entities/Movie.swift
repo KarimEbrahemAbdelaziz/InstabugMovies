@@ -9,7 +9,7 @@
 import Foundation
 
 struct Movie {
-    var id: String
+    var id: Int
     var title: String
     var overview: String
     var date: String

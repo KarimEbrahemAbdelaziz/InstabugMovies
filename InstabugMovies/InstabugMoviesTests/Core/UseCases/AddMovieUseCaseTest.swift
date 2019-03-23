@@ -28,7 +28,7 @@ class AddMovieUseCaseTest: XCTestCase {
     
     func testAddMovieSuccessCallsCompletionHandler() {
         // Given
-        let movieToAddParameters = AddMovieParameters(id: "0",
+        let movieToAddParameters = AddMovieParameters(id: 0,
                                                       title: "Movie 0",
                                                       overview: "Overview for movie 0",
                                                       date: "23-3-2019",
@@ -54,7 +54,7 @@ class AddMovieUseCaseTest: XCTestCase {
     
     func testAddMovieFailureCallsCompletionHandler() {
         // Given
-        let movieToAddParameters = AddMovieParameters(id: "0",
+        let movieToAddParameters = AddMovieParameters(id: 0,
                                                       title: "Movie 0",
                                                       overview: "Overview for movie 0",
                                                       date: "23-3-2019",

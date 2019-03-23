@@ -22,6 +22,6 @@ extension Movie {
     }
     
     static func createMovie(index: Int = 0) -> Movie {
-        return Movie(id: "\(index)", title: "Movie \(index)", overview: "Overview for movie \(index)", date: "23-3-2019", poster: "http://posterformovie\(index).png")
+        return Movie(id: index, title: "Movie \(index)", overview: "Overview for movie \(index)", date: "23-3-2019", poster: "http://posterformovie\(index).png")
     }
 }
