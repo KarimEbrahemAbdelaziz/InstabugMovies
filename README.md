@@ -1,6 +1,10 @@
 # InstabugMovies
 InstabugMovies is an iOS application built as interview task at Instabug. Built Using MVP (Model-View-Presenter) and Clean Architecture concepts
 
+### Unit Tests Coverage
+
+* I tried to cover all logic with tests in the given period time which was 1 week, and i reach 67.8 % code coverage.
+
 ### Run Requirements
 
 * Xcode 10
