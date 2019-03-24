@@ -9,7 +9,7 @@
 @testable import InstabugMovies
 import XCTest
 
-class APIClientTests: XCTestCase {
+class APIClientTest: XCTestCase {
 
     let urlSessionStub = URLSessionStub()
     var apiClient: ApiClientImplementation!
