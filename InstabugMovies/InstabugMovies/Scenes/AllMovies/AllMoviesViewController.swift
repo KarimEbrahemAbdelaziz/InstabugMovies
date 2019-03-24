@@ -63,6 +63,12 @@ class AllMoviesViewController: UIViewController {
     private func addMoviesTableViewFooter() {
         moviesTableView.tableFooterView = UIView()
     }
+    
+    // MARK: - IBActions
+    
+    @IBAction private func addLocalMovie(_ sender: UIBarButtonItem) {
+        presenter.addButtonPressed()
+    }
 
 }
 

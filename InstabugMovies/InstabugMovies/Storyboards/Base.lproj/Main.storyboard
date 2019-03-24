@@ -62,7 +62,14 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Movies" id="2Sg-7J-xNs"/>
+                    <navigationItem key="navigationItem" title="Movies" id="2Sg-7J-xNs">
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="bGY-MR-u9f">
+                            <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <connections>
+                                <action selector="addLocalMovie:" destination="BYZ-38-t0r" id="6aZ-ZB-8K2"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="emptyStateView" destination="ReB-uO-QwA" id="Fwe-2w-obr"/>
                         <outlet property="moviesTableView" destination="AaB-Qb-X1G" id="RYw-iO-3kn"/>
