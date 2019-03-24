@@ -24,5 +24,11 @@ class AllMoviesViewSpy: AllMoviesView {
         displayAllMoviesRetrievalErrorMessage = message
     }
     
+    func scrollToMyMovies() { }
+    
+    func shouldHideMoviesTableView(hidden: Bool) { }
+    
+    func shouldHideEmptyStateView(hidden: Bool) { }
+    
 }
 

@@ -84,13 +84,48 @@ class AllMoviesPresenterTest: XCTestCase {
         let movieCellSpy = MovieCellSpy()
         
         // When
-        allMoviesPresenter.configure(cell: movieCellSpy, forRow: rowToConfigure)
+        allMoviesPresenter.configureAPI(cell: movieCellSpy, forRow: rowToConfigure)
         
         // Then
         XCTAssertEqual(expectedDisplayedTitle, movieCellSpy.displayedTitle, "The title we expected was not displayed")
         XCTAssertEqual(expectedDisplayedOverview, movieCellSpy.displayedOverview, "The overview we expected was not displayed")
         XCTAssertEqual(expectedDisplayedReleaseDate, movieCellSpy.displayedReleaseDate, "The date we expected was not displayed")
         XCTAssertEqual(expectedDisplayedPoster, movieCellSpy.displayedPoster, "The poster we expected was not displayed")
+    }
+    
+    func testAddButtonPressedNavigatesToAddMovieView() {
+        // When
+        allMoviesPresenter.addButtonPressed()
+        
+        // Then
+        XCTAssertTrue(allMoviesPresenter === moviesViewRouterSpy.passedAddMoviePresenterDelegate, "AllMoviesPresenter wasn't passed as delegate to AllMoviesViewRouter")
+    }
+    
+    func testAddMoviePresenterDidAddMovieRefreshAllMoviesViewCalled() {
+        // Given
+        let addedMovie = Movie.createMovie()
+        let addMovieViewRouterSpy = AddMovieViewRouterSpy()
+        let addMoviePresenterStub = AddMoviePresenterStub(router: addMovieViewRouterSpy)
+        
+        // When
+        allMoviesPresenter.addMoviePresenter(addMoviePresenterStub, didAdd: addedMovie)
+        
+        // Then
+        XCTAssertTrue(allMoviesPresenter.localMovies.contains(addedMovie), "Movie wasn't added in the presenter")
+        XCTAssertTrue(addMovieViewRouterSpy.didCallDismiss, "Dismiss wasn't called on the AddMovieViewRouter")
+        XCTAssertTrue(allMoviesViewSpy.refreshAllMoviesViewCalled, "refreshAllMoviesView was not called")
+    }
+    
+    func testAddMoviePresenterCancelDismissView() {
+        // Given
+        let addMovieViewRouterSpy = AddMovieViewRouterSpy()
+        let addMoviePresenterStub = AddMoviePresenterStub(router: addMovieViewRouterSpy)
+        
+        // When
+        allMoviesPresenter.addMoviePresenterCancel(presenter: addMoviePresenterStub)
+        
+        // Then
+        XCTAssertTrue(addMovieViewRouterSpy.didCallDismiss, "Dismiss wasn't called on the AddMovieViewRouter")
     }
 
 }

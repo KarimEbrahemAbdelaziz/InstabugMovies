@@ -22,7 +22,7 @@
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="v56-Qa-Nev">
                         <rect key="frame" x="8" y="8" width="304" height="183.5"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="empty-movie-poster" translatesAutoresizingMaskIntoConstraints="NO" id="Iya-eT-6IP" customClass="CachedImageView" customModule="InstabugMovies" customModuleProvider="target">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="empty-movie-poster" translatesAutoresizingMaskIntoConstraints="NO" id="Iya-eT-6IP" customClass="CachedImageView" customModule="InstabugMovies" customModuleProvider="target">
                                 <rect key="frame" x="16" y="16" width="100" height="150"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="150" id="Chx-hf-7aV"/>
@@ -36,7 +36,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Movie Overview" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YeF-R8-TWD">
-                                <rect key="frame" x="132" y="71" width="152" height="96.5"/>
+                                <rect key="frame" x="132" y="71" width="152" height="19.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                 <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
@@ -50,7 +50,7 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstAttribute="bottom" secondItem="YeF-R8-TWD" secondAttribute="bottom" constant="16" id="7x0-Na-Cmh"/>
+                            <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="YeF-R8-TWD" secondAttribute="bottom" constant="16" id="7x0-Na-Cmh"/>
                             <constraint firstItem="YeF-R8-TWD" firstAttribute="leading" secondItem="Iya-eT-6IP" secondAttribute="trailing" constant="16" id="9d5-3b-1eQ"/>
                             <constraint firstItem="Iya-eT-6IP" firstAttribute="leading" secondItem="v56-Qa-Nev" secondAttribute="leading" constant="16" id="Bg0-Ek-A4y"/>
                             <constraint firstAttribute="trailing" secondItem="kFG-Dy-4Un" secondAttribute="trailing" constant="20" id="L2k-Zc-BiX"/>
@@ -80,7 +80,7 @@
                 <outlet property="movieDateLabel" destination="kFG-Dy-4Un" id="i0t-YQ-6Bz"/>
                 <outlet property="movieOverviewLabel" destination="YeF-R8-TWD" id="JF3-ZY-tu9"/>
                 <outlet property="moviePosterImageView" destination="Iya-eT-6IP" id="QNP-sP-xox"/>
-                <outlet property="movieTitleLabel" destination="vDq-bU-7Oe" id="xY4-Vb-kt5"/>
+                <outlet property="movieTitleLabel" destination="vDq-bU-7Oe" id="gfs-ld-IGn"/>
             </connections>
             <point key="canvasLocation" x="52.799999999999997" y="60.26986506746627"/>
         </tableViewCell>

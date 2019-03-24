@@ -9,12 +9,13 @@
 import UIKit
 
 protocol AllMoviesViewRouter: ViewRouter {
-    // TODO: Present add movie screen protocol function to be added
+    func presentAddMovie(addMoviePresenterDelegate: AddMoviePresenterDelegate)
 }
 
 class AllMoviesViewRouterImplementation: AllMoviesViewRouter {
     
     fileprivate weak var allMoviesViewController: AllMoviesViewController?
+    fileprivate weak var addMoviePresenterDelegate: AddMoviePresenterDelegate?
     
     init(allMoviesViewController: AllMoviesViewController) {
         self.allMoviesViewController = allMoviesViewController
@@ -22,8 +23,16 @@ class AllMoviesViewRouterImplementation: AllMoviesViewRouter {
     
     // MARK: - AllMoviesViewRouter
     
+    func presentAddMovie(addMoviePresenterDelegate: AddMoviePresenterDelegate) {
+        self.addMoviePresenterDelegate = addMoviePresenterDelegate
+        allMoviesViewController?.performSegue(withIdentifier: "MoviesSceneToAddMovieSceneSegue", sender: nil)
+    }
+    
     func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        
+        if let navigationController = segue.destination as? UINavigationController,
+            let addMovieViewController = navigationController.topViewController as? AddMovieViewController {
+            addMovieViewController.configurator = AddMovieConfiguratorImplementation(addMoviePresenterDelegate: addMoviePresenterDelegate)
+        }
     }
     
 }

@@ -11,4 +11,10 @@ import Foundation
 
 class MoviesViewRouterSpy: AllMoviesViewRouter {
     
+    var passedAddMoviePresenterDelegate: AddMoviePresenterDelegate?
+    
+    func presentAddMovie(addMoviePresenterDelegate: AddMoviePresenterDelegate) {
+        passedAddMoviePresenterDelegate = addMoviePresenterDelegate
+    }
+    
 }

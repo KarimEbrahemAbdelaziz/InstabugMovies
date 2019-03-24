@@ -24,15 +24,37 @@ class MovieCell: UITableViewCell, MovieCellView {
     }
     
     func display(title: String) {
-        self.movieDateLabel.text = title
+        self.movieTitleLabel.text = title
     }
     
     func display(poster: String) {
-        self.moviePosterImageView.loadImage(urlString: poster)
+        if !poster.contains("file:///") && !poster.isEmpty {
+            self.moviePosterImageView.loadImage(urlString: poster)
+        } else {
+            guard let url = URL(string: poster), let imageData = NSData(contentsOf: url) as Data? else {
+                self.moviePosterImageView.image = UIImage(named: "empty-movie-poster")
+                return
+            }
+            self.moviePosterImageView.image = UIImage(data: imageData)
+        }
     }
     
     func display(releaseDate: String) {
-        self.movieDateLabel.text = releaseDate
+        let dateFormatterGet = DateFormatter()
+        dateFormatterGet.dateFormat = "yyyy-MM-dd"
+        let dateFormatterSet = DateFormatter()
+        dateFormatterSet.dateFormat = "MMM dd,yyyy"
+        var dateString = "Unknow release date"
+        if let date = dateFormatterGet.date(from: releaseDate) {
+            dateString = dateFormatterSet.string(from: date)
+        } else {
+            dateFormatterGet.dateFormat = "yyyy-MM-dd HH:mm:ssZ"
+            if let date = dateFormatterGet.date(from: releaseDate) {
+                dateString = dateFormatterSet.string(from: date)
+            }
+        }
+        
+        self.movieDateLabel.text = dateString
     }
     
     func display(overview: String) {

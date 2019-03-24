@@ -7,9 +7,13 @@
 //
 
 import Foundation
+import UIKit
 
 protocol AllMoviesView: class {
     func refreshAllMoviesView()
+    func scrollToMyMovies()
+    func shouldHideMoviesTableView(hidden: Bool)
+    func shouldHideEmptyStateView(hidden: Bool)
     func displayAllMoviesRetrievalError(title: String, message: String)
 }
 
@@ -24,13 +28,19 @@ protocol MovieCellView {
 
 protocol AllMoviesPresenter {
     var numberOfMovies: Int { get }
+    var numberOfLocalMovies: Int { get }
+    var numberOfLoadingCells: Int { get }
+    var numberOfSections: Int { get }
     var router: AllMoviesViewRouter { get }
     func viewDidLoad()
-    func configure(cell: MovieCellView, forRow row: Int)
+    func tryFetchMoviesAgain()
+    func configureAPI(cell: MovieCellView, forRow row: Int)
+    func configureLocal(cell: MovieCellView, forRow row: Int)
     func addButtonPressed()
+    func fetchNextPageOfMovies()
 }
 
-class AllMoviesPresenterImplementation: AllMoviesPresenter {
+class AllMoviesPresenterImplementation: AllMoviesPresenter, AddMoviePresenterDelegate {
     fileprivate weak var view: AllMoviesView?
     fileprivate let displayMoviesUseCase: DisplayMoviesUseCase
     fileprivate let addMovieUseCase: AddMovieUseCase
@@ -38,9 +48,24 @@ class AllMoviesPresenterImplementation: AllMoviesPresenter {
     
     // Normally this would be file private as well, we keep it internal so we can inject values for testing purposes
     var movies = [Movie]()
+    var localMovies = [Movie]()
+    
+    private var pageNumber = 1
     
     var numberOfMovies: Int {
         return movies.count
+    }
+    
+    var numberOfLocalMovies: Int {
+        return localMovies.count
+    }
+    
+    var numberOfLoadingCells: Int {
+        return 1
+    }
+    
+    var numberOfSections: Int {
+        return 3
     }
     
     init(view: AllMoviesView,
@@ -56,7 +81,60 @@ class AllMoviesPresenterImplementation: AllMoviesPresenter {
     // MARK: - AllMoviesPresenter
     
     func viewDidLoad() {
-        self.displayMoviesUseCase.displayMovies(pageNumber: 1) { (result) in
+        self.pageNumber = 1
+        self.movies.removeAll()
+        fetchMovies(at: pageNumber)
+    }
+    
+    func tryFetchMoviesAgain() {
+        self.pageNumber = 1
+        self.movies.removeAll()
+        fetchMovies(at: pageNumber)
+    }
+    
+    func fetchNextPageOfMovies() {
+        fetchMovies(at: pageNumber)
+    }
+    
+    func configureAPI(cell: MovieCellView, forRow row: Int) {
+        let movie = movies[row]
+        
+        cell.display(title: movie.title)
+        cell.display(poster: movie.poster)
+        cell.display(overview: movie.overview)
+        cell.display(releaseDate: movie.date)
+    }
+    
+    func configureLocal(cell: MovieCellView, forRow row: Int) {
+        let movie = localMovies[row]
+        
+        cell.display(title: movie.title)
+        cell.display(poster: movie.poster)
+        cell.display(overview: movie.overview)
+        cell.display(releaseDate: movie.date)
+    }
+    
+    func addButtonPressed() {
+        router.presentAddMovie(addMoviePresenterDelegate: self)
+    }
+    
+    // MARK: - AddMoviePresenterDelegate
+    
+    func addMoviePresenter(_ presenter: AddMoviePresenter, didAdd movie: Movie) {
+        presenter.router.dismiss()
+        localMovies.append(movie)
+        view?.refreshAllMoviesView()
+        view?.scrollToMyMovies()
+    }
+    
+    func addMoviePresenterCancel(presenter: AddMoviePresenter) {
+        presenter.router.dismiss()
+    }
+    
+    // MARK: - Private
+    
+    fileprivate func fetchMovies(at page: Int) {
+        self.displayMoviesUseCase.displayMovies(pageNumber: page) { (result) in
             switch result {
             case let .success(movies):
                 self.handleMoviesReceived(movies)
@@ -66,28 +144,22 @@ class AllMoviesPresenterImplementation: AllMoviesPresenter {
         }
     }
     
-    func configure(cell: MovieCellView, forRow row: Int) {
-        let movie = movies[row]
-        
-        cell.display(title: movie.title)
-        cell.display(poster: movie.poster)
-        cell.display(overview: movie.overview)
-        cell.display(releaseDate: movie.date)
-    }
-    
-    func addButtonPressed() {
-        
-    }
-    
-    // MARK: - Private
-    
     fileprivate func handleMoviesReceived(_ movies: [Movie]) {
-        self.movies = movies
-        view?.refreshAllMoviesView()
+        if !movies.isEmpty {
+            view?.shouldHideEmptyStateView(hidden: true)
+            view?.shouldHideMoviesTableView(hidden: false)
+            self.movies.append(contentsOf: movies)
+            self.pageNumber += 1
+            view?.refreshAllMoviesView()
+        } else {
+            view?.shouldHideEmptyStateView(hidden: false)
+            view?.shouldHideMoviesTableView(hidden: true)
+        }
     }
     
     fileprivate func handleMoviesError(_ error: Error) {
-        // Here we could check the error code and display a localized error message
+        view?.shouldHideEmptyStateView(hidden: false)
+        view?.shouldHideMoviesTableView(hidden: true)
         view?.displayAllMoviesRetrievalError(title: "Error", message: error.localizedDescription)
     }
     
