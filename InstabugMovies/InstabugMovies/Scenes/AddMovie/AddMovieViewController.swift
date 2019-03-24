@@ -48,8 +48,14 @@ class AddMovieViewController: UIViewController, UINavigationControllerDelegate, 
             presentAlert(withTitle: "Movie Overview Required", message: "Please enter an overview for your awesome movie 🔥.")
             return
         }
-        let addMovieParameters = AddMovieParameters(id: -1, title: movieTitle, overview: movieOverview, date: releaseDatePicker.date.description == "" ? Date().description : releaseDatePicker.date.description, poster: (moviePosterImagePickedURL?.absoluteString) ?? "")
-        presenter.addButtonPressed(parameters: addMovieParameters)
+        if moviePosterImageView.image != UIImage(named: "") {
+            let posterPath = saveImage(image: moviePosterImageView.image!)
+            let addMovieParameters = AddMovieParameters(id: -1, title: movieTitle, overview: movieOverview, date: releaseDatePicker.date.description == "" ? Date().description : releaseDatePicker.date.description, poster: posterPath)
+            presenter.addButtonPressed(parameters: addMovieParameters)
+        } else {
+            let addMovieParameters = AddMovieParameters(id: -1, title: movieTitle, overview: movieOverview, date: releaseDatePicker.date.description == "" ? Date().description : releaseDatePicker.date.description, poster: "")
+            presenter.addButtonPressed(parameters: addMovieParameters)
+        }
     }
     
     @IBAction func cancelButtonPressed(_ sender: UIBarButtonItem) {
@@ -57,6 +63,18 @@ class AddMovieViewController: UIViewController, UINavigationControllerDelegate, 
     }
     
     // MARK: - Private functions
+    
+    private func saveImage(image: UIImage) -> String {
+        
+        let imageData = NSData(data: image.jpegData(compressionQuality: 0)!)
+        let paths = NSSearchPathForDirectoriesInDomains(FileManager.SearchPathDirectory.documentDirectory,  FileManager.SearchPathDomainMask.userDomainMask, true)
+        let docs = paths[0] as NSString
+        let uuid = NSUUID().uuidString + ".JPEG"
+        let fullPath = docs.appendingPathComponent(uuid)
+        _ = imageData.write(toFile: fullPath, atomically: true)
+        return uuid
+        
+    }
     
     @objc private func selectMoviePoster() {
         if UIImagePickerController.isSourceTypeAvailable(.savedPhotosAlbum){

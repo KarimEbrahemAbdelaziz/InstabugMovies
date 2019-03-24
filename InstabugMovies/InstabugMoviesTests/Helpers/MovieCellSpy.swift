@@ -15,6 +15,7 @@ class MovieCellSpy: MovieCellView {
     var displayedOverview = ""
     var displayedReleaseDate = ""
     var displayedPoster = ""
+    var displayedPosterImage = ""
     
     func display(title: String) {
         self.displayedTitle = title
@@ -22,6 +23,10 @@ class MovieCellSpy: MovieCellView {
     
     func display(poster: String) {
         self.displayedPoster = poster
+    }
+    
+    func display(posterImage: String) {
+        self.displayedPosterImage = posterImage
     }
     
     func display(releaseDate: String) {

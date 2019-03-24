@@ -28,15 +28,42 @@ class MovieCell: UITableViewCell, MovieCellView {
     }
     
     func display(poster: String) {
-        if !poster.contains("file:///") && !poster.isEmpty {
-            self.moviePosterImageView.loadImage(urlString: poster)
-        } else {
-            guard let url = URL(string: poster), let imageData = NSData(contentsOf: url) as Data? else {
-                self.moviePosterImageView.image = UIImage(named: "empty-movie-poster")
-                return
-            }
-            self.moviePosterImageView.image = UIImage(data: imageData)
+        self.moviePosterImageView.loadImage(urlString: poster)
+    }
+    
+    func display(posterImage: String) {
+        guard let image = getImage(imageName: posterImage) else {
+            self.moviePosterImageView.image = UIImage(named: "")
+            return
         }
+        self.moviePosterImageView.image = image
+    }
+    
+    private func getImage(imageName: String) -> UIImage? {
+        var savedImage: UIImage?
+        if let imagePath = getFilePath(fileName: imageName) {
+            savedImage = UIImage(contentsOfFile: imagePath)
+        } else {
+            savedImage = nil
+        }
+        return savedImage
+    }
+    
+    private func getFilePath(fileName: String) -> String? {
+        
+        let nsDocumentDirectory = FileManager.SearchPathDirectory.documentDirectory
+        let nsUserDomainMask = FileManager.SearchPathDomainMask.userDomainMask
+        var filePath: String?
+        let paths = NSSearchPathForDirectoriesInDomains(nsDocumentDirectory, nsUserDomainMask, true)
+        if paths.count > 0 {
+            let dirPath = paths[0] as NSString
+            filePath = dirPath.appendingPathComponent(fileName)
+        }
+        else {
+            filePath = nil
+        }
+        
+        return filePath
     }
     
     func display(releaseDate: String) {

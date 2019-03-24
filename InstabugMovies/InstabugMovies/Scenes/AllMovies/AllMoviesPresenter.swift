@@ -24,6 +24,7 @@ protocol MovieCellView {
     func display(poster: String)
     func display(releaseDate: String)
     func display(overview: String)
+    func display(posterImage: String)
 }
 
 protocol AllMoviesPresenter {
@@ -109,7 +110,7 @@ class AllMoviesPresenterImplementation: AllMoviesPresenter, AddMoviePresenterDel
         let movie = localMovies[row]
         
         cell.display(title: movie.title)
-        cell.display(poster: movie.poster)
+        cell.display(posterImage: movie.poster)
         cell.display(overview: movie.overview)
         cell.display(releaseDate: movie.date)
     }
@@ -122,7 +123,7 @@ class AllMoviesPresenterImplementation: AllMoviesPresenter, AddMoviePresenterDel
     
     func addMoviePresenter(_ presenter: AddMoviePresenter, didAdd movie: Movie) {
         presenter.router.dismiss()
-        localMovies.append(movie)
+        localMovies.insert(movie, at: 0)
         view?.refreshAllMoviesView()
         view?.scrollToMyMovies()
     }
