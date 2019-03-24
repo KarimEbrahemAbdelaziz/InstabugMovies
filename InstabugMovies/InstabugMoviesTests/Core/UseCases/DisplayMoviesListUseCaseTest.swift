@@ -35,7 +35,7 @@ class DisplayMoviesListUseCaseTest: XCTestCase {
         let displayMoviesCompletionHandlerExpectation = expectation(description: "Display Movies Expectation")
         
         // When
-        displayMoviesListUseCase.displayMovies { (result) in
+        displayMoviesListUseCase.displayMovies(pageNumber: 1) { (result) in
             
             // Then
             XCTAssertEqual(expectedResultToBeReturned, result, "Completion handler didn't return the expected result")
@@ -54,7 +54,7 @@ class DisplayMoviesListUseCaseTest: XCTestCase {
         let displayMoviesCompletionHandlerExpectation = expectation(description: "Display Movies Expectation")
         
         // When
-        displayMoviesListUseCase.displayMovies { (result) in
+        displayMoviesListUseCase.displayMovies(pageNumber: 1) { (result) in
             
             // Then
             XCTAssertEqual(expectedResultToBeReturned, result, "Completion handler didn't return the expected result")

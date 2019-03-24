@@ -16,7 +16,7 @@ class MoviesGatewaySpy: MoviesGateway {
     
     var addedMovie: Movie!
     
-    func fetchMovies(completionHandler: @escaping FetchMoviesEntityGatewayCompletionHandler) {
+    func fetchMovies(pageNumber: Int, completionHandler: @escaping FetchMoviesEntityGatewayCompletionHandler) {
         completionHandler(fetchMoviesResultToBeReturned)
     }
     

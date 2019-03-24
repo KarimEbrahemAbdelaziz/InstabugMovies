@@ -11,7 +11,7 @@ import Foundation
 typealias DisplayMoviesUseCaseCompletionHandler = (_ movies: Result<[Movie]>) -> Void
 
 protocol DisplayMoviesUseCase {
-    func displayMovies(completionHandler: @escaping DisplayMoviesUseCaseCompletionHandler)
+    func displayMovies(pageNumber: Int, completionHandler: @escaping DisplayMoviesUseCaseCompletionHandler)
 }
 
 class DisplayMoviesUseCaseImplementation: DisplayMoviesUseCase {
@@ -23,8 +23,8 @@ class DisplayMoviesUseCaseImplementation: DisplayMoviesUseCase {
     
     // MARK: - DisplayMoviesUseCase
     
-    func displayMovies(completionHandler: @escaping (Result<[Movie]>) -> Void) {
-        self.moviesGateway.fetchMovies { (result) in
+    func displayMovies(pageNumber: Int, completionHandler: @escaping (Result<[Movie]>) -> Void) {
+        self.moviesGateway.fetchMovies(pageNumber: pageNumber) { (result) in
             completionHandler(result)
         }
     }

@@ -12,6 +12,6 @@ typealias FetchMoviesEntityGatewayCompletionHandler = (_ movies: Result<[Movie]>
 typealias AddMovieEntityGatewayCompletionHandler = (_ movie: Result<Movie>) -> Void
 
 protocol MoviesGateway {
-    func fetchMovies(completionHandler: @escaping FetchMoviesEntityGatewayCompletionHandler)
+    func fetchMovies(pageNumber: Int, completionHandler: @escaping FetchMoviesEntityGatewayCompletionHandler)
     func add(parameters: AddMovieParameters, completionHandler: @escaping AddMovieEntityGatewayCompletionHandler)
 }

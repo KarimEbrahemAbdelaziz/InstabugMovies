@@ -8,6 +8,41 @@
 
 import Foundation
 
+struct APIMovies: InitializableWithData, InitializableWithJson {
+    var movies = [APIMovie]()
+    
+    init(data: Data?) throws {
+        // Here you can parse the JSON or XML using the build in APIs or your favorite libraries
+        guard let data = data,
+            let jsonObject = try? JSONSerialization.jsonObject(with: data),
+            let json = jsonObject as? [String: Any] else {
+                throw NSError.createPraseError()
+        }
+        
+        try self.init(json: json)
+    }
+    
+    init(json: [String : Any]) throws {
+        guard let movies = json["results"] as? [[String: Any]] else {
+                throw NSError.createPraseError()
+        }
+        
+        let parsedMovies: [APIMovie?] = movies.map({ (movie) -> APIMovie? in
+            guard let _ = movie["id"] as? Int,
+                let _ = movie["title"] as? String,
+                let _ = movie["poster_path"] as? String,
+                let _ = movie["overview"] as? String,
+                let _ = movie["release_date"] as? String
+                else {
+                    return nil
+            }
+            return APIMovie(json: movie)
+        })
+        
+        self.movies.append(contentsOf: parsedMovies.compactMap { $0 })
+    }
+}
+
 struct APIMovie: InitializableWithData, InitializableWithJson {
     var voteCount: Int?
     var vidoe: Bool?
@@ -32,43 +67,25 @@ struct APIMovie: InitializableWithData, InitializableWithJson {
                 throw NSError.createPraseError()
         }
         
-        try self.init(json: json)
+        self.init(json: json)
         
     }
     
-    init(json: [String : Any]) throws {
-        guard let id = json["id"] as? Int,
-            let voteCount = json["vote_count"] as? Int,
-            let vidoe = json["vidoe"] as? Bool,
-            let voteAverage = json["vote_average"] as? Double,
-            let popularity = json["popularity"] as? Double,
-            let originalLanguage = json["original_language"] as? String,
-            let originalTitle = json["original_title"] as? String,
-            let genreIds = json["genre_ids"] as? [Int],
-            let backdropPath = json["backdrop_path"] as? String,
-            let title = json["title"] as? String,
-            let posterPath = json["poster_path"] as? String,
-            let overview = json["overview"] as? String,
-            let releaseDate = json["release_date"] as? String,
-            let adult = json["adult"] as? Bool
-        else {
-                throw NSError.createPraseError()
-        }
-        
-        self.id = id
-        self.voteCount = voteCount
-        self.vidoe = vidoe
-        self.voteAverage = voteAverage
-        self.popularity = popularity
-        self.originalLanguage = originalLanguage
-        self.originalTitle = originalTitle
-        self.genreIds = genreIds
-        self.backdropPath = backdropPath
-        self.title = title
-        self.posterPath = posterPath
-        self.overview = overview
-        self.releaseDate = releaseDate
-        self.adult = adult
+    init(json: [String : Any]) {
+        self.id = json["id"] as! Int
+        self.voteCount = json["vote_count"] as? Int
+        self.vidoe = json["vidoe"] as? Bool
+        self.voteAverage = json["vote_average"] as? Double
+        self.popularity = json["popularity"] as? Double
+        self.originalLanguage = json["original_language"] as? String
+        self.originalTitle = json["original_title"] as? String
+        self.genreIds = json["genre_ids"] as? [Int]
+        self.backdropPath = json["backdrop_path"] as? String
+        self.title = json["title"] as? String
+        self.posterPath = json["poster_path"] as? String
+        self.overview = json["overview"] as? String
+        self.releaseDate = json["release_date"] as? String
+        self.adult = json["adult"] as? Bool
     }
 }
 

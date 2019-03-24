@@ -14,7 +14,7 @@ struct MoviesAPIRequest: APIRequest {
     private var apiKey = "acea91d2bff1c53e6604e4985b6989e2"
     private var pageNumber: Int
     
-    init(pageNumber: Int = 0) {
+    init(pageNumber: Int = 1) {
         self.pageNumber = pageNumber
     }
     
