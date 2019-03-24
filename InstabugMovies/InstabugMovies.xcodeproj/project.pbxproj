@@ -12,7 +12,6 @@
 		BC5110982246C0BE00B0BB79 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BC5110962246C0BE00B0BB79 /* Main.storyboard */; };
 		BC51109A2246C0BF00B0BB79 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BC5110992246C0BF00B0BB79 /* Assets.xcassets */; };
 		BC51109D2246C0BF00B0BB79 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BC51109B2246C0BF00B0BB79 /* LaunchScreen.storyboard */; };
-		BC5110A82246C0BF00B0BB79 /* InstabugMoviesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC5110A72246C0BF00B0BB79 /* InstabugMoviesTests.swift */; };
 		BC5110B32246C0BF00B0BB79 /* InstabugMoviesUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC5110B22246C0BF00B0BB79 /* InstabugMoviesUITests.swift */; };
 		BC5110C32246D19E00B0BB79 /* Movie.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC5110C22246D19E00B0BB79 /* Movie.swift */; };
 		BC5110C52246D22E00B0BB79 /* Result.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC5110C42246D22E00B0BB79 /* Result.swift */; };
@@ -61,7 +60,6 @@
 		BC51109C2246C0BF00B0BB79 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		BC51109E2246C0BF00B0BB79 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		BC5110A32246C0BF00B0BB79 /* InstabugMoviesTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = InstabugMoviesTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		BC5110A72246C0BF00B0BB79 /* InstabugMoviesTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InstabugMoviesTests.swift; sourceTree = "<group>"; };
 		BC5110A92246C0BF00B0BB79 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		BC5110AE2246C0BF00B0BB79 /* InstabugMoviesUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = InstabugMoviesUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		BC5110B22246C0BF00B0BB79 /* InstabugMoviesUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InstabugMoviesUITests.swift; sourceTree = "<group>"; };
@@ -135,14 +133,12 @@
 		BC5110912246C0BE00B0BB79 /* InstabugMovies */ = {
 			isa = PBXGroup;
 			children = (
+				BC5110F822475F1900B0BB79 /* ApplicationFiles */,
+				BC5110F922475F4100B0BB79 /* Resources */,
 				BC5110C02246D12600B0BB79 /* Core */,
 				BC5110DE2246E62000B0BB79 /* EntityGateway */,
-				BC5110922246C0BE00B0BB79 /* AppDelegate.swift */,
+				BC5110FA22475F4E00B0BB79 /* Storyboards */,
 				BC5110942246C0BE00B0BB79 /* ViewController.swift */,
-				BC5110962246C0BE00B0BB79 /* Main.storyboard */,
-				BC5110992246C0BF00B0BB79 /* Assets.xcassets */,
-				BC51109B2246C0BF00B0BB79 /* LaunchScreen.storyboard */,
-				BC51109E2246C0BF00B0BB79 /* Info.plist */,
 			);
 			path = InstabugMovies;
 			sourceTree = "<group>";
@@ -154,7 +150,6 @@
 				BC5110D02246D96700B0BB79 /* Helpers */,
 				BC5110CE2246D92900B0BB79 /* Core */,
 				BC5110E62246E9D000B0BB79 /* EntityGateway */,
-				BC5110A72246C0BF00B0BB79 /* InstabugMoviesTests.swift */,
 				BC5110A92246C0BF00B0BB79 /* Info.plist */,
 			);
 			path = InstabugMoviesTests;
@@ -292,6 +287,32 @@
 				BC5110F02246F67600B0BB79 /* MoviesAPIRequest.swift */,
 			);
 			path = Requests;
+			sourceTree = "<group>";
+		};
+		BC5110F822475F1900B0BB79 /* ApplicationFiles */ = {
+			isa = PBXGroup;
+			children = (
+				BC5110922246C0BE00B0BB79 /* AppDelegate.swift */,
+				BC51109E2246C0BF00B0BB79 /* Info.plist */,
+			);
+			path = ApplicationFiles;
+			sourceTree = "<group>";
+		};
+		BC5110F922475F4100B0BB79 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				BC5110992246C0BF00B0BB79 /* Assets.xcassets */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		BC5110FA22475F4E00B0BB79 /* Storyboards */ = {
+			isa = PBXGroup;
+			children = (
+				BC5110962246C0BE00B0BB79 /* Main.storyboard */,
+				BC51109B2246C0BF00B0BB79 /* LaunchScreen.storyboard */,
+			);
+			path = Storyboards;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -451,7 +472,6 @@
 				BC5110E82246E9FC00B0BB79 /* APIClientTest.swift in Sources */,
 				BC5110D42246D9C500B0BB79 /* AddMovieUseCaseTest.swift in Sources */,
 				BC5110EA2246EA6F00B0BB79 /* URLSessionStub.swift in Sources */,
-				BC5110A82246C0BF00B0BB79 /* InstabugMoviesTests.swift in Sources */,
 				BC5110D22246D9B600B0BB79 /* DisplayMoviesListUseCaseTest.swift in Sources */,
 				BC5110D92246DC0C00B0BB79 /* Movie.swift in Sources */,
 			);
@@ -621,7 +641,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				INFOPLIST_FILE = InstabugMovies/Info.plist;
+				INFOPLIST_FILE = "$(SRCROOT)/InstabugMovies/ApplicationFiles/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -638,7 +659,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				INFOPLIST_FILE = InstabugMovies/Info.plist;
+				INFOPLIST_FILE = "$(SRCROOT)/InstabugMovies/ApplicationFiles/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
