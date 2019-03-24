@@ -1,6 +1,6 @@
 //
-//  InstabugMoviesUITests.swift
-//  InstabugMoviesUITests
+//  AllMoviesMoviesUITests.swift
+//  AllMoviesMoviesUITests
 //
 //  Created by Karim Ebrahem on 3/23/19.
 //  Copyright © 2019 Karim Ebrahem. All rights reserved.
@@ -10,25 +10,92 @@ import XCTest
 
 class InstabugMoviesUITests: XCTestCase {
 
+    private var app: XCUIApplication!
+    
     override func setUp() {
-        // Put setup code here. This method is called before the invocation of each test method in the class.
-
-        // In UI tests it is usually best to stop immediately when a failure occurs.
+        super.setUp()
+        
         continueAfterFailure = false
-
-        // UI tests must launch the application that they test. Doing this in setup will make sure it happens for each test method.
-        XCUIApplication().launch()
-
-        // In UI tests it’s important to set the initial state - such as interface orientation - required for your tests before they run. The setUp method is a good place to do this.
+        app = XCUIApplication()
+        app.launch()
     }
 
     override func tearDown() {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
+        super.tearDown()
+        
     }
 
-    func testExample() {
-        // Use recording to get started writing UI tests.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
+    func testAddButtonPresentNewScreen() {
+        // Given
+        let moviesNavigationBar = app.navigationBars["Movies"]
+        
+        // When
+        moviesNavigationBar.buttons["Add"].tap()
+        
+        // Then
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+            XCTAssertFalse(moviesNavigationBar.exists, "The movies navigation bar is exist")
+        }
+    }
+    
+    func testAddButtonPresentAddMovieScreen() {
+        // Given
+        let moviesNavigationBar = app.navigationBars["Movies"]
+        
+        // When
+        moviesNavigationBar.buttons["Add"].tap()
+        let addMovieNavigationBar = app.navigationBars["Add Movie"]
+        
+        // Then
+        XCTAssertTrue(addMovieNavigationBar.exists, "The add movie navigation bar is exist")
+    }
+    
+    func testCancelButtonDismissAddMovieScreen() {
+        // Given
+        let moviesNavigationBar = app.navigationBars["Movies"]
+        moviesNavigationBar.buttons["Add"].tap()
+        let addMovieNavigationBar = app.navigationBars["Add Movie"]
+        let cancelButton = addMovieNavigationBar.buttons["Cancel"]
+        
+        // When
+        cancelButton.tap()
+        
+        // Then
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+            XCTAssertFalse(addMovieNavigationBar.exists, "The add movie navigation bar is exist")
+        }
+    }
+    
+    func testSaveButtonWithEmptyTitlePresentAlert() {
+        // Given
+        let moviesNavigationBar = app.navigationBars["Movies"]
+        moviesNavigationBar.buttons["Add"].tap()
+        let addMovieNavigationBar = app.navigationBars["Add Movie"]
+        let saveButton = addMovieNavigationBar.buttons["Save"]
+        
+        // When
+        saveButton.tap()
+
+        // Then
+        let movieTitleRequiredAlert = app.alerts["Movie Title Required"]
+        XCTAssertTrue(movieTitleRequiredAlert.exists, "Movies error alert not exist")
+    }
+    
+    func testDismissAlertButtonDismissErrorAlert() {
+        // Given
+        let moviesNavigationBar = app.navigationBars["Movies"]
+        moviesNavigationBar.buttons["Add"].tap()
+        let addMovieNavigationBar = app.navigationBars["Add Movie"]
+        let saveButton = addMovieNavigationBar.buttons["Save"]
+        saveButton.tap()
+        let movieTitleRequiredAlert = app.alerts["Movie Title Required"]
+        let dismissAletButton = movieTitleRequiredAlert.buttons["Dismiss"]
+        
+        // When
+        dismissAletButton.tap()
+        
+        // Then
+        XCTAssertFalse(movieTitleRequiredAlert.exists, "Error Alert still exist")
     }
 
 }
