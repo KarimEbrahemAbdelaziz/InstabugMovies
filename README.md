@@ -7,7 +7,7 @@ InstabugMovies is an iOS application built as interview task at Instabug. Built 
 
 ### Run Requirements
 
-* Xcode 10
+* Xcode 10.1
 * Swift 4.2
 
 ### High Level Layers
