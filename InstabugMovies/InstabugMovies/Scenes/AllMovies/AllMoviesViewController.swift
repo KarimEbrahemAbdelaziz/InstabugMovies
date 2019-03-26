@@ -97,8 +97,16 @@ class AllMoviesViewController: UIViewController, UIScrollViewDelegate {
     
     @objc private func handleRefresh(_ refreshControl: UIRefreshControl) {
         presenter.tryFetchMoviesAgain()
-        refreshControl.endRefreshing()
     }
+    
+    private func fetchNextMoviesPage() {
+        isFetchingMore = true
+        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 1) {
+            self.presenter.fetchNextPageOfMovies()
+        }
+    }
+    
+    // MARK: - ScrollView delegate
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         let offsetY = scrollView.contentOffset.y
@@ -111,11 +119,20 @@ class AllMoviesViewController: UIViewController, UIScrollViewDelegate {
         }
     }
     
-    private func fetchNextMoviesPage() {
-        isFetchingMore = true
-        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 1) {
-            self.presenter.fetchNextPageOfMovies()
+    func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
+        presenter.suspendAllOperations()
+    }
+    
+    func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
+        if !decelerate {
+            presenter.loadImagesForOnscreenCells(indexPaths: moviesTableView.indexPathsForVisibleRows ?? [])
+            presenter.resumeAllOperations()
         }
+    }
+    
+    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+        presenter.loadImagesForOnscreenCells(indexPaths: moviesTableView.indexPathsForVisibleRows ?? [])
+        presenter.resumeAllOperations()
     }
 
 }
@@ -135,6 +152,9 @@ extension AllMoviesViewController: AllMoviesView {
         isFetchingMore = false
         moviesTableView.isHidden = false
         moviesTableView.reloadData()
+        if refreshControl.isRefreshing {
+            refreshControl.endRefreshing()
+        }
     }
     
     func scrollToMyMovies() {
@@ -144,6 +164,9 @@ extension AllMoviesViewController: AllMoviesView {
     func displayAllMoviesRetrievalError(title: String, message: String) {
         isFetchingMore = false
         presentAlert(withTitle: title, message: message)
+        if refreshControl.isRefreshing {
+            refreshControl.endRefreshing()
+        }
     }
 }
 

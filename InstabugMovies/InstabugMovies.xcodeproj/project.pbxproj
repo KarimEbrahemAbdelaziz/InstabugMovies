@@ -55,6 +55,7 @@
 		BC5111312247B92400B0BB79 /* AddMovieViewRouterSpy.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC5111302247B92400B0BB79 /* AddMovieViewRouterSpy.swift */; };
 		BC5111332247B96700B0BB79 /* AddMoviePresenterStub.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC5111322247B96700B0BB79 /* AddMoviePresenterStub.swift */; };
 		BC5111352247DAE700B0BB79 /* InstabugMoviesUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC5111342247DAE700B0BB79 /* InstabugMoviesUITests.swift */; };
+		BC7E62842249C176005CCC74 /* InstaubgImageDownloader.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC7E62832249C176005CCC74 /* InstaubgImageDownloader.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -129,6 +130,7 @@
 		BC5111302247B92400B0BB79 /* AddMovieViewRouterSpy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddMovieViewRouterSpy.swift; sourceTree = "<group>"; };
 		BC5111322247B96700B0BB79 /* AddMoviePresenterStub.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddMoviePresenterStub.swift; sourceTree = "<group>"; };
 		BC5111342247DAE700B0BB79 /* InstabugMoviesUITests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InstabugMoviesUITests.swift; sourceTree = "<group>"; };
+		BC7E62832249C176005CCC74 /* InstaubgImageDownloader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InstaubgImageDownloader.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -414,6 +416,7 @@
 		BC51110B22476A6D00B0BB79 /* MovieCell */ = {
 			isa = PBXGroup;
 			children = (
+				BC7E62822249C152005CCC74 /* ImageDownloaderOperation */,
 				BC51110C22476A8000B0BB79 /* MovieCell.swift */,
 				BC51110D22476A8000B0BB79 /* MovieCell.xib */,
 			);
@@ -454,6 +457,14 @@
 				BC51112822478C5200B0BB79 /* AddMovieRouter.swift */,
 			);
 			path = AddMovie;
+			sourceTree = "<group>";
+		};
+		BC7E62822249C152005CCC74 /* ImageDownloaderOperation */ = {
+			isa = PBXGroup;
+			children = (
+				BC7E62832249C176005CCC74 /* InstaubgImageDownloader.swift */,
+			);
+			path = ImageDownloaderOperation;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -593,6 +604,7 @@
 				BC5110932246C0BE00B0BB79 /* AppDelegate.swift in Sources */,
 				BC5110C52246D22E00B0BB79 /* Result.swift in Sources */,
 				BC51112F22478C7E00B0BB79 /* AddMovieConfigurator.swift in Sources */,
+				BC7E62842249C176005CCC74 /* InstaubgImageDownloader.swift in Sources */,
 				BC5110E12246E6A500B0BB79 /* APIClient.swift in Sources */,
 				BC51111822476B3400B0BB79 /* DiscardableImageCacheItem.swift in Sources */,
 				BC5110F32246FDB700B0BB79 /* APIMoviesGateway.swift in Sources */,
