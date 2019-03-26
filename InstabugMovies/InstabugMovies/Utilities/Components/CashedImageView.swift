@@ -15,9 +15,8 @@ class CachedImageView: UIImageView {
     
     static let imageCache = NSCache<NSString, DiscardableImageCacheItem>()
     
-    var shouldUseEmptyImage = true
-    
-    private var urlStringForChecking: String?
+    var url: URL!
+    var downloadedImage: UIImage!
     private var emptyImage: UIImage = UIImage(named: "empty-movie-poster")!
     
     required init?(coder aDecoder: NSCoder) {
@@ -37,8 +36,6 @@ class CachedImageView: UIImageView {
     func loadImage(urlString: String, completion: (() -> ())? = nil) {
         image = nil
         
-        self.urlStringForChecking = urlString
-        
         let urlKey = urlString as NSString
         
         if let cachedItem = CachedImageView.imageCache.object(forKey: urlKey) {
@@ -48,31 +45,37 @@ class CachedImageView: UIImageView {
         }
         
         guard let url = URL(string: "http://image.tmdb.org/t/p/w185\(urlString)") else {
-            if shouldUseEmptyImage {
-                image = emptyImage
-            }
+            image = emptyImage
             return
         }
-        URLSession.shared.dataTask(with: url, completionHandler: { [weak self] (data, response, error) in
-            if error != nil {
-                DispatchQueue.main.async {
-                    self?.image = self?.emptyImage
-                }
+        
+        self.url = url
+        startDownload(urlString: urlString)
+    }
+    
+    func startDownload(urlString: String) {
+        guard InstaubgImagePendingOperations.shared.downloadsInProgress[urlString] == nil else { return }
+        
+        let downloader = InstaubgImageDownloader(self)
+        downloader.completionBlock = {
+            if downloader.isCancelled {
                 return
             }
             
             DispatchQueue.main.async {
-                if let image = UIImage(data: data!) {
-                    let cacheItem = DiscardableImageCacheItem(image: image)
-                    CachedImageView.imageCache.setObject(cacheItem, forKey: urlKey)
-                    
-                    if urlString == self?.urlStringForChecking {
-                        self?.image = image
-                        completion?()
-                    }
+                InstaubgImagePendingOperations.shared.downloadsInProgress.removeValue(forKey: urlString)
+
+                if self.downloadedImage != self.emptyImage {
+                    let cacheItem = DiscardableImageCacheItem(image: self.downloadedImage)
+                    CachedImageView.imageCache.setObject(cacheItem, forKey: urlString as NSString)
+                    self.image = self.downloadedImage
+                } else {
+                    self.image = self.downloadedImage
                 }
             }
-            
-        }).resume()
+        }
+
+        InstaubgImagePendingOperations.shared.downloadsInProgress[urlString] = downloader
+        InstaubgImagePendingOperations.shared.downloadQueue.addOperation(downloader)
     }
 }

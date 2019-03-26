@@ -39,6 +39,9 @@ protocol AllMoviesPresenter {
     func configureLocal(cell: MovieCellView, forRow row: Int)
     func addButtonPressed()
     func fetchNextPageOfMovies()
+    func resumeAllOperations()
+    func loadImagesForOnscreenCells(indexPaths: [IndexPath])
+    func suspendAllOperations()
 }
 
 class AllMoviesPresenterImplementation: AllMoviesPresenter, AddMoviePresenterDelegate {
@@ -117,6 +120,34 @@ class AllMoviesPresenterImplementation: AllMoviesPresenter, AddMoviePresenterDel
     
     func addButtonPressed() {
         router.presentAddMovie(addMoviePresenterDelegate: self)
+    }
+    
+    func suspendAllOperations() {
+        InstaubgImagePendingOperations.shared.downloadQueue.isSuspended = true
+    }
+    
+    func resumeAllOperations() {
+        InstaubgImagePendingOperations.shared.downloadQueue.isSuspended = false
+    }
+    
+    func loadImagesForOnscreenCells(indexPaths: [IndexPath]) {
+        if !indexPaths.isEmpty {
+            let allPendingOperations = Set(InstaubgImagePendingOperations.shared.downloadsInProgress.keys)
+            
+            var toBeCancelled = allPendingOperations
+            let visibleKeys = indexPaths.map { (indexPath) -> String in
+                return movies[indexPath.row].poster
+            }
+            toBeCancelled.subtract(visibleKeys)
+        
+            for key in toBeCancelled {
+                if let pendingDownload = InstaubgImagePendingOperations.shared.downloadsInProgress[key] {
+                    pendingDownload.cancel()
+                }
+                
+                InstaubgImagePendingOperations.shared.downloadsInProgress.removeValue(forKey: key)
+            }
+        }
     }
     
     // MARK: - AddMoviePresenterDelegate
